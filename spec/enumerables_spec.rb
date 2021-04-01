@@ -57,9 +57,11 @@ describe 'Enumerable' do
         test = arr
         expect(test.my_select(&:even?)).to eq(result)
       end
+
       it 'should return only elements returning true when passed into block' do
-        expect(negative.my_select(&:positive?)).to eq([1, 3, 4])
+        expect(negative.my_select(&:positive?)).to_not include(-2)
       end
+      
       it 'should return an an empty array if block condition is false' do
         test = arr
         expect(test.my_select { false }).to be_empty
@@ -74,7 +76,7 @@ describe 'Enumerable' do
       end
 
       it 'should return false if any elements in block returns false' do
-        expect([1, 2, 3, 'S'].my_all? { |ele| ele.is_a?(Integer) }).to be false
+        expect([1, 2, 3, 'S'].my_all? { |ele| ele.is_a?(Integer) }).not_to be true
       end
     end
     context 'when parameter is given' do
@@ -92,7 +94,7 @@ describe 'Enumerable' do
     end
     context 'when no parameter is given' do
       it 'should return false if any elements do not match paramter ' do
-        expect([1, 2, 3, 'S'].my_all?(Integer)).to be false
+        expect([1, 2, 3, 'S'].my_all?(Integer)).to_not be true
       end
 
       it 'should return true if all elements are truthy' do
@@ -100,7 +102,7 @@ describe 'Enumerable' do
       end
 
       it 'should return false if any elements is falsy' do
-        expect([1, 'a', nil].my_all?).to be false
+        expect([1, 'a', nil].my_all?).to_not be true
       end
 
       it 'should return true if empty' do
@@ -116,7 +118,7 @@ describe 'Enumerable' do
       end
 
       it 'should return false if all elements in block returns false' do
-        expect(arr.my_any? { |ele| ele.is_a?(String) }).to be false
+        expect(arr.my_any? { |ele| ele.is_a?(String) }).to_not be true
       end
     end
     context 'when paramer is given' do
@@ -133,7 +135,7 @@ describe 'Enumerable' do
       end
 
       it 'should return false if all elements do not match paramter ' do
-        expect([1, 2, 3, 'S'].my_any?(Float)).to be false
+        expect([1, 2, 3, 'S'].my_any?(Float)).to_not be true
       end
     end
     context 'when no parameters are given' do
@@ -142,11 +144,11 @@ describe 'Enumerable' do
       end
 
       it 'should false if all elements are false' do
-        expect([false, nil].my_any?).to be false
+        expect([false, nil].my_any?).to_not be true
       end
 
       it 'should return false if empty' do
-        expect([].my_any?).to be false
+        expect([].my_any?).to_not be true
       end
     end
   end
@@ -158,7 +160,7 @@ describe 'Enumerable' do
       end
 
       it 'should return false if all elements in block returns true' do
-        expect(arr.my_none? { |ele| ele.is_a?(Integer) }).to be false
+        expect(arr.my_none? { |ele| ele.is_a?(Integer) }).to_not be true
       end
     end
     context 'when paramer is given' do
@@ -175,7 +177,7 @@ describe 'Enumerable' do
       end
 
       it 'should return false if all elements match parameter ' do
-        expect(arr.my_none?(Integer)).to be false
+        expect(arr.my_none?(Integer)).to_not be true
       end
 
       it 'should return true if empty' do
@@ -187,7 +189,7 @@ describe 'Enumerable' do
         expect([false, nil].my_none?).to be true
       end
       it 'should return false if any elements is truthy' do
-        expect([false, nil, true].my_none?).to be false
+        expect([false, nil, true].my_none?).to_not be true
       end
     end
   end
