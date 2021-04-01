@@ -3,10 +3,11 @@ require_relative './../enumerables'
 describe 'Enumerable' do
   let(:arr) { [1, 2, 3, 4, 5] }
   let(:negative) { [1, -2, 3, 4] }
+  let(:same_array) {[1,1,1,1]}
   describe '#my_each' do
     context 'when no block is given' do
       it 'should return Enumerable' do
-        expect(arr.my_each).to be_a(Enumerable)
+        expect(arr.my_each).to be_a(Enumerator)
       end
     end
     context 'when block is given' do
@@ -26,7 +27,7 @@ describe 'Enumerable' do
   describe '#my_each_with_index' do
     context 'when no block is given' do
       it 'should return Enumerable' do
-        expect(arr.my_each_with_index).to be_a(Enumerable)
+        expect(arr.my_each_with_index).to be_a(Enumerator)
       end
     end
     context 'when block is given' do
@@ -61,7 +62,6 @@ describe 'Enumerable' do
       it 'should return only elements returning true when passed into block' do
         expect(negative.my_select(&:positive?)).to_not include(-2)
       end
-      
       it 'should return an an empty array if block condition is false' do
         test = arr
         expect(test.my_select { false }).to be_empty
@@ -89,7 +89,7 @@ describe 'Enumerable' do
       end
 
       it 'should return true if all elements match other any paramter' do
-        expect([1, 1, 1, 1].my_all?(1)).to be true
+        expect(same_array.my_all?(1)).to be true
       end
     end
     context 'when no parameter is given' do
