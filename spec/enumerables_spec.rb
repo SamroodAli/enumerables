@@ -2,7 +2,7 @@ require_relative './../enumerables'
 
 describe 'Enumerable' do
   let(:arr) { [1, 2, 3, 4, 5] }
-  let(:negative) {[1,-2,3,4]}
+  let(:negative) { [1, -2, 3, 4] }
   describe '#my_each' do
     context 'when no block is given' do
       it 'should return Enumerable' do
@@ -56,6 +56,9 @@ describe 'Enumerable' do
         result = [2, 4]
         test = arr
         expect(test.my_select(&:even?)).to eq(result)
+      end
+      it 'should return only elements returning true when passed into block' do
+        expect(negative.my_select(&:positive?)).to eq([1, 3, 4])
       end
       it 'should return an an empty array if block condition is false' do
         test = arr
@@ -192,7 +195,7 @@ describe 'Enumerable' do
   describe '#my_count' do
     context 'when block is given' do
       it 'should return the count of the elements in block returning true' do
-        expect(arr.my_count { |ele| ele.is_a?(Integer) }).to eq(4)
+        expect(arr.my_count { |ele| ele.is_a?(Integer) }).to eq(5)
       end
 
       it 'should return count zero if no elements pass the block returning true' do
@@ -284,7 +287,7 @@ describe 'Enumerable' do
       def multiply_els(arr)
         arr.my_inject(:*)
       end
-      expect(multiply_els(arr)).to eq(24)
+      expect(multiply_els(arr)).to eq(120)
     end
   end
 end
