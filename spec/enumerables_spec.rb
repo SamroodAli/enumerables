@@ -53,11 +53,11 @@ describe 'Enumerable' do
     context 'when block is given' do
       it 'should return an array result passing each element to block' do
         result = [2, 4]
-        test = [1, 2, 3, 4]
+        test = arr
         expect(test.my_select(&:even?)).to eq(result)
       end
       it 'should return an an empty array if block condition is false' do
-        test = [1, 2, 3, 4]
+        test = arr
         expect(test.my_select { false }).to be_empty
       end
     end
@@ -66,7 +66,7 @@ describe 'Enumerable' do
   describe '#my_all?' do
     context 'when block is given' do
       it 'should return true if all elements in block returns true' do
-        expect([1, 2, 3, 4].my_all? { |ele| ele.is_a?(Integer) }).to be true
+        expect(arr.my_all? { |ele| ele.is_a?(Integer) }).to be true
       end
 
       it 'should return false if any elements in block returns false' do
@@ -75,7 +75,7 @@ describe 'Enumerable' do
     end
     context 'when parameter is given' do
       it 'should return true if all elements match Class parameter' do
-        expect([1, 2, 3, 4].my_all?(Integer)).to be true
+        expect(arr.my_all?(Integer)).to be true
       end
 
       it 'should return true if all elements match Regex' do
@@ -108,11 +108,11 @@ describe 'Enumerable' do
   describe '#my_any?' do
     context 'when block is given' do
       it 'should return true if any elements in block returns true' do
-        expect([1, 2, 3, 4].my_any? { |ele| ele.is_a?(Integer) }).to be true
+        expect(arr.my_any? { |ele| ele.is_a?(Integer) }).to be true
       end
 
       it 'should return false if all elements in block returns false' do
-        expect([1, 2, 3, 4].my_any? { |ele| ele.is_a?(String) }).to be false
+        expect(arr.my_any? { |ele| ele.is_a?(String) }).to be false
       end
     end
     context 'when paramer is given' do
@@ -150,11 +150,11 @@ describe 'Enumerable' do
   describe '#my_none?' do
     context 'when block is given' do
       it 'should return true if none of the elements in block returns true' do
-        expect([1, 2, 3, 4].my_none? { |ele| ele.is_a?(String) }).to be true
+        expect(arr.my_none? { |ele| ele.is_a?(String) }).to be true
       end
 
       it 'should return false if all elements in block returns true' do
-        expect([1, 2, 3, 4].my_none? { |ele| ele.is_a?(Integer) }).to be false
+        expect(arr.my_none? { |ele| ele.is_a?(Integer) }).to be false
       end
     end
     context 'when paramer is given' do
@@ -171,7 +171,7 @@ describe 'Enumerable' do
       end
 
       it 'should return false if all elements match parameter ' do
-        expect([1, 2, 3, 4].my_none?(Integer)).to be false
+        expect(arr.my_none?(Integer)).to be false
       end
 
       it 'should return true if empty' do
@@ -191,11 +191,11 @@ describe 'Enumerable' do
   describe '#my_count' do
     context 'when block is given' do
       it 'should return the count of the elements in block returning true' do
-        expect([1, 2, 3, 4].my_count { |ele| ele.is_a?(Integer) }).to eq(4)
+        expect(arr.my_count { |ele| ele.is_a?(Integer) }).to eq(4)
       end
 
       it 'should return count zero if no elements pass the block returning true' do
-        expect([1, 2, 3, 4].my_count { |ele| ele.is_a?(String) }).to eq(0)
+        expect(arr.my_count { |ele| ele.is_a?(String) }).to eq(0)
       end
     end
     context 'when paramter is given' do
@@ -283,7 +283,7 @@ describe 'Enumerable' do
       def multiply_els(arr)
         arr.my_inject(:*)
       end
-      expect(multiply_els([1, 2, 3, 4])).to eq(24)
+      expect(multiply_els(arr)).to eq(24)
     end
   end
 end
