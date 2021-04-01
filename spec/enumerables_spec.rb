@@ -3,7 +3,7 @@ require_relative './../enumerables'
 describe 'Enumerable' do
   let(:arr) { [1, 2, 3, 4, 5] }
   let(:negative) { [1, -2, 3, 4] }
-  let(:same_array) {[1,1,1,1]}
+  let(:same_array) { [1, 1, 1, 1] }
   describe '#my_each' do
     context 'when no block is given' do
       it 'should return Enumerable' do
