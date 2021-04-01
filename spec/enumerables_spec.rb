@@ -4,8 +4,9 @@ describe 'Enumerable' do
   let(:arr) { [1, 2, 3, 4, 5] }
   let(:negative) { [1, -2, 3, 4] }
   let(:same_array) { [1, 1, 1, 1] }
-  let(:false_array){[false,nil]}
-  let(:empty_array){ Array.new }
+  let(:false_array) { [false, nil] }
+  let(:empty_array) { [] }
+
   describe '#my_each' do
     context 'when no block is given' do
       it 'should return Enumerable' do
@@ -220,7 +221,7 @@ describe 'Enumerable' do
         expect([1, 1, 1, 2].my_count(1)).to eq(3)
       end
 
-      it 'should return 0 all elements do not match paramter ' do
+      it 'should return 0 all elements do not match parameter ' do
         expect([1, 2, 3, 'S'].my_count(Float)).to eq(0)
       end
 
