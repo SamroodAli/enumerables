@@ -2,7 +2,9 @@ module Enumerable
   def my_each
     return to_enum unless block_given?
 
-    length.times { |i| yield(self[i]) }
+    for ele in self
+      yield ele
+    end
   end
 
   def my_each_with_index
@@ -16,8 +18,9 @@ module Enumerable
   end
 
   def my_select
-    new_arr = []
     return to_enum unless block_given?
+
+    new_arr = []
 
     my_each { |ele| new_arr << ele if yield ele }
     new_arr
@@ -96,6 +99,8 @@ module Enumerable
     end
     acc
   end
+
+  private
 
   def match?(ele, para)
     case para
