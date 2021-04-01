@@ -4,6 +4,8 @@ describe 'Enumerable' do
   let(:arr) { [1, 2, 3, 4, 5] }
   let(:negative) { [1, -2, 3, 4] }
   let(:same_array) { [1, 1, 1, 1] }
+  let(:false_array){[false,nil]}
+  let(:empty_array){ Array.new }
   describe '#my_each' do
     context 'when no block is given' do
       it 'should return Enumerable' do
@@ -106,7 +108,7 @@ describe 'Enumerable' do
       end
 
       it 'should return true if empty' do
-        expect([].my_all?).to be true
+        expect(empty_array.my_all?).to be true
       end
     end
   end
@@ -144,11 +146,11 @@ describe 'Enumerable' do
       end
 
       it 'should false if all elements are false' do
-        expect([false, nil].my_any?).to_not be true
+        expect(false_array.my_any?).to_not be true
       end
 
       it 'should return false if empty' do
-        expect([].my_any?).to_not be true
+        expect(empty_array.my_any?).to_not be true
       end
     end
   end
@@ -181,15 +183,16 @@ describe 'Enumerable' do
       end
 
       it 'should return true if empty' do
-        expect([].my_none?).to be true
+        expect(empty_array.my_none?).to be true
       end
     end
     context 'when no parameter is given' do
       it 'should return true if none elements are truthy' do
-        expect([false, nil].my_none?).to be true
+        expect(false_array.my_none?).to be true
       end
       it 'should return false if any elements is truthy' do
-        expect([false, nil, true].my_none?).to_not be true
+        false_array << true
+        expect(false_array.my_none?).to_not be true
       end
     end
   end
@@ -222,7 +225,7 @@ describe 'Enumerable' do
       end
 
       it 'should return 0 for empty enumerables' do
-        expect([].my_count).to eq(0)
+        expect(empty_array.my_count).to eq(0)
       end
     end
     context 'when paramter is not given' do
@@ -230,7 +233,7 @@ describe 'Enumerable' do
         expect([1, nil, 1.4].my_count).to eq(3)
       end
       it 'should return 0 for empty enumerables' do
-        expect([].my_count).to eq(0)
+        expect(empty_array.my_count).to eq(0)
       end
     end
   end
@@ -256,7 +259,7 @@ describe 'Enumerable' do
 
   describe '#my_inject' do
     it 'should raise LocalJumpError if no block or parameters' do
-      expect { [1, 2, 3].my_inject }.to raise_error LocalJumpError
+      expect { arr.my_inject }.to raise_error LocalJumpError
     end
 
     context 'When block is given' do
